@@ -8,8 +8,26 @@
 
 namespace fs = std::filesystem;
 
-auto init() -> std::optional<fs::filesystem_error> {
-  std::optional<fs::filesystem_error> result;
+auto init() -> std::optional<std::string> {
+  std::optional<std::string> result;
+  try {
+    fs::create_directory(".git");
+    fs::create_directory(".git/objects");
+    fs::create_directory(".git/refs");
+
+    std::ofstream head_file(".git/HEAD");
+    if (head_file.is_open()) {
+      head_file << "ref: refs/heads/main\n";
+    } else {
+      result = "Failed to create .git/Head file";
+      return result;
+    }
+
+    std::cout << "Initialized git directory\n";
+  } catch (const fs::filesystem_error& e) {
+    result = e.what();
+    return result;
+  }
   return result;
 }
 
@@ -22,29 +40,16 @@ auto main(int argc, char* argv[]) -> int {
   }
 
   if (args[1] == "init") {
-    try {
-      fs::create_directory(".git");
-      fs::create_directory(".git/objects");
-      fs::create_directory(".git/refs");
-
-      std::ofstream headFile(".git/HEAD");
-      if (headFile.is_open()) {
-        headFile << "ref: refs/heads/main\n";
-        headFile.close();
-      } else {
-        std::cerr << "Failed to create .git/HEAD file.\n";
-        return EXIT_FAILURE;
-      }
-
-      std::cout << "Initialized git directory\n";
-    } catch (const fs::filesystem_error& e) {
-      std::cerr << e.what() << '\n';
+    auto result = init();
+    if (result) {
+      std::cerr << result.value() << '\n';
       return EXIT_FAILURE;
     }
   } else {
-    std::cerr << "Unknown command " << args[1] << '\n';
+    std::cerr << "Unknown command: '" << args[1] << "'\n";
     return EXIT_FAILURE;
   }
+
 
   return EXIT_SUCCESS;
 }
