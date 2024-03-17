@@ -1,27 +1,31 @@
+#include <expected>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <string>
+#include <vector>
+
+namespace fs = std::filesystem;
+
+auto init() -> std::optional<fs::filesystem_error> {
+  std::optional<fs::filesystem_error> result;
+  return result;
+}
 
 auto main(int argc, char* argv[]) -> int {
-  // You can use print statements as follows for debugging, they'll be visible
-  // when running tests.
-  std::cout << "Logs from your program will appear here!\n";
+  std::vector<std::string> args(argv, argv + argc);
 
-  // Uncomment this block to pass the first stage
-
-  if (argc < 2) {
+  if (args.size() < 2) {
     std::cerr << "No command provided.\n";
     return EXIT_FAILURE;
   }
 
-  std::string command = argv[1];
-
-  if (command == "init") {
+  if (args[1] == "init") {
     try {
-      std::filesystem::create_directory(".git");
-      std::filesystem::create_directory(".git/objects");
-      std::filesystem::create_directory(".git/refs");
+      fs::create_directory(".git");
+      fs::create_directory(".git/objects");
+      fs::create_directory(".git/refs");
 
       std::ofstream headFile(".git/HEAD");
       if (headFile.is_open()) {
@@ -33,12 +37,12 @@ auto main(int argc, char* argv[]) -> int {
       }
 
       std::cout << "Initialized git directory\n";
-    } catch (const std::filesystem::filesystem_error& e) {
+    } catch (const fs::filesystem_error& e) {
       std::cerr << e.what() << '\n';
       return EXIT_FAILURE;
     }
   } else {
-    std::cerr << "Unknown command " << command << '\n';
+    std::cerr << "Unknown command " << args[1] << '\n';
     return EXIT_FAILURE;
   }
 
