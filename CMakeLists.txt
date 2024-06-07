@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(git-starter-cpp
+project(my_git
         LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20) # Enable the C++20 standard
-# set(CMAKE_CXX_STANDSARD_REQUIRED On)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDSARD_REQUIRED On)
 set(CMAKE_CXX_EXTENSIONS Off)
 
 if((CMAKE_GENERATOR STREQUAL "Ninja")
@@ -14,10 +14,10 @@ endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-set(SOURCE_FILES src/Server.cpp)
 
-add_executable(server ${SOURCE_FILES})
+add_executable(mgit ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 add_subdirectory(zstr)
-target_link_libraries(server zstr::zstr)
-# target_link_libraries(server -lz)
+target_link_libraries(mgit zstr::zstr)
+# target_link_libraries(mgit -lz)
