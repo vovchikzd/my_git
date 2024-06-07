@@ -45,7 +45,8 @@ auto cat_file(const std::string& blob_sha) -> std::optional<const char*> {
   if (not input.is_open()) return "Failed to open object file";
 
   input >> std::noskipws;
-  std::copy(std::istream_iterator<char>(input), std::istream_iterator<char>(),
+  std::string file((std::istream_iterator<char>(input)), std::istream_iterator<char>());
+  std::copy(file.begin() + file.find('\0') + 1, file.end(),
             std::ostream_iterator<char>(std::cout));
 
   return result;
