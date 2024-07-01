@@ -6,7 +6,6 @@
 import tools;
 import repository;
 
-using std::print;
 using std::println;
 
 void usage(const char* name) {
