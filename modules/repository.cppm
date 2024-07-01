@@ -1,11 +1,12 @@
 module;
 
 #include <filesystem>
+#include <expected>
 namespace fs = std::filesystem;
 
-export module GRepository;
+export module MRepository;
 
-export auto get_repo_root() -> fs::path {
+auto get_repo_root() -> std::expected<fs::path, /*Errors::filesystem_error*/int> {
   fs::path current_path = fs::current_path();
 
   for (int begin = 0,
@@ -22,6 +23,13 @@ export struct Repository {
 private:
   const fs::path root;
 
+  template<std::convertible_to<fs::path> T>
+  Repository(T&& path): root(std::forward<T>(path)) {}
+
 public:
-  Repository(): root(get_repo_root()) {}
+  Repository(const Repository&) = delete;
+  static auto get_repo() -> std::expected<Repository, /*Errors::error*/int> {
+    std::expected<Repository, int> result;
+    return result;
+  }
 };
