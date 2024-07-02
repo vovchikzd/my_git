@@ -8,12 +8,12 @@ module;
 #include <print>
 #include <vector>
 
-namespace fs = std::filesystem;
-using std::println;
-
 export module tools;
 
 import repository;
+
+namespace fs = std::filesystem;
+using std::println;
 
 using citer = const std::vector<std::string>::const_iterator;
 
@@ -22,7 +22,7 @@ namespace tools {
   export auto init(const Repository& repo, citer begin, citer end) -> int {
     if (repo.isExist()) {
       println(stderr, "Initialized repository already exist, root: {}",
-              repo.root());
+              repo.root().string());
       return EXIT_FAILURE;
     }
 
@@ -30,9 +30,9 @@ namespace tools {
       const fs::path root =
           fs::current_path() / (std::distance(begin, end) ? *begin : "");
 
-      fs::create_directory(root / ".git");
-      fs::create_directory(root / ".git/objects");
-      fs::create_directory(root / ".git/refs");
+      fs::create_directories(root / ".git");
+      fs::create_directories(root / ".git/objects");
+      fs::create_directories(root / ".git/refs");
 
       std::ofstream head(root / ".git/HEAD");
       if (!head.is_open()) {
@@ -45,7 +45,7 @@ namespace tools {
 
       println(stdout, "Initialized git repository");
     } catch (const fs::filesystem_error& err) {
-      println(stderr, "FILESYSTEM ERROR: {}", err.what());
+      println(stderr, "{}", err.what());
       return EXIT_FAILURE;
     } catch (const std::bad_alloc& err) {
       println(stderr, "Cannot allocate memory: {}", err.what());
@@ -53,18 +53,6 @@ namespace tools {
     }
 
     return EXIT_SUCCESS;
-  }
-
-  export auto get_repo_root()
-      -> std::expected<fs::path, /*Errors::filesystem_error*/ int> {
-    fs::path current_path = fs::current_path();
-
-    for (int begin = 0,
-             end   = std::distance(current_path.begin(), current_path.end());
-         begin < end; ++begin, current_path = current_path.parent_path())
-      if (const fs::path tmp = current_path / ".git";
-          fs::exists(tmp) and fs::is_directory(tmp))
-        return current_path;
   }
 
 }  // namespace tools
