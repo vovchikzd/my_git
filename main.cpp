@@ -5,6 +5,7 @@
 
 import tools;
 import repository;
+import sha1;
 
 using std::println;
 
