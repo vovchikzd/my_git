@@ -2,23 +2,25 @@
 - [Helpfull paper](https://wyag.thb.lt/#objects)
 - As a wrapper on zlib use [this wrapper](https://github.com/mateidavid/zstr)
 
-### TODO
+#### TODO
 - [x] search repo root method
 - [ ] reconfidure modules structure
-- [ ] add sha1 realisation \
-&nbsp;
-- [x] implement init
-- [ ] implement add
-- [ ] implement cat-file
-- [ ] implement check-ignore
-- [ ] implement checkout
-- [ ] implement commit
-- [ ] implement hash-object
-- [ ] implement log
-- [ ] implement ls-files
-- [ ] implement ls-tree
-- [ ] implement rev-parse
-- [ ] implement rm
-- [ ] implement show-ref
-- [ ] implement status
-- [ ] implement tag
+- [ ] add sha1 realisation
+
+
+#### Goals
+- [x] init
+- [ ] add
+- [ ] cat-file
+- [ ] check-ignore
+- [ ] checkout
+- [ ] commit
+- [ ] hash-object
+- [ ] log
+- [ ] ls-files
+- [ ] ls-tree
+- [ ] rev-parse
+- [ ] rm
+- [ ] show-ref
+- [ ] status
+- [ ] tag
