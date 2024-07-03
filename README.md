@@ -6,7 +6,7 @@
 - [x] search repo root method
 - [ ] reconfidure modules structure
 - [ ] add sha1 realisation \
-\
+&nbsp;
 - [x] implement init
 - [ ] implement add
 - [ ] implement cat-file
