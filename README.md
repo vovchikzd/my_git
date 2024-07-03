@@ -1,6 +1,6 @@
 ### My minimal Git realisation
 - [Helpfull paper](https://wyag.thb.lt/#objects)
-- As a wrapper on zlib use [this wrapper](https://github.com/mateidavid/zstr)
+- As a wrapper over zlib is used [this wrapper](https://github.com/mateidavid/zstr)
 
 #### TODO
 - [x] search repo root method
