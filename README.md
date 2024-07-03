@@ -1,2 +1,6 @@
-# My own Git
-This is my own minimum (and probably naive) Git implementation based on [this paper](https://wyag.thb.lt/#objects)
+### My minimal Git realisation
+- [Helpfull paper](https://wyag.thb.lt/#objects)
+- As a wrapper on zlib use [this wrapper](https://github.com/mateidavid/zstr)
+
+### TODO
+- [ ] reconfidure modules structure
