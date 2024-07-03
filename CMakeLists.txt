@@ -36,14 +36,8 @@ add_executable(mgit ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 target_sources(mgit PUBLIC
                  ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
-# add modules
-target_sources(mgit PRIVATE
-               FILE_SET modules TYPE CXX_MODULES
-               BASE_DIRS ${PROJECT_MODULES_DIR}
-               FILES
-                 ${PROJECT_MODULES_DIR}/repository.cppm
-                 ${PROJECT_MODULES_DIR}/tools.cppm
-)
+# modules dir
+add_subdirectory(${PROJECT_MODULES_DIR})
 
 add_subdirectory(zstr)
 target_link_libraries(mgit zstr::zstr)
