@@ -30,6 +30,13 @@ namespace tools {
       const fs::path root =
           fs::current_path() / (std::distance(begin, end) ? *begin : "");
 
+      if (fs::path tmp = root / ".git";
+          fs::exists(tmp) and fs::is_directory(tmp)) {
+        println(stderr, "Initialized repository already exist, root: {}",
+                tmp.string());
+        return EXIT_FAILURE;
+      }
+
       fs::create_directories(root / ".git");
       fs::create_directories(root / ".git/objects");
       fs::create_directories(root / ".git/refs");
