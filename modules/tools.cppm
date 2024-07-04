@@ -33,7 +33,7 @@ namespace tools {
       if (fs::path tmp = root / ".git";
           fs::exists(tmp) and fs::is_directory(tmp)) {
         println(stderr, "Initialized repository already exist, root: {}",
-                tmp.string());
+                root.string());
         return EXIT_FAILURE;
       }
 
