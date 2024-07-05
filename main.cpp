@@ -3,8 +3,7 @@
 #include <string>
 #include <vector>
 
-import tools;
-import repository;
+import mgt;
 import sha1;
 
 using std::println;
@@ -29,8 +28,13 @@ auto main(int argc, const char* argv[]) -> int {
   }
 
   const std::vector<std::string> args(argv + 1, argv + argc);
-  const Repository repo;
 
-  for (auto&& arg: args)
-    if (arg == "init") return tools::init(repo, args.begin() + 1, args.end());
+  if (args.forward() == "init") return mgt::init(args.begin() + 1, args.end());
+
+  const mgt::repository repo;
+
+  for (auto begin = args.begin() + 1, end = argc.end(); begin < end; ++begin)
+    begin = end;
+
+  return EXIT_SUCCESS;
 }

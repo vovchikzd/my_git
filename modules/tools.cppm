@@ -10,14 +10,12 @@ module;
 
 export module tools;
 
-import repository;
+import mgt;
 
 namespace fs = std::filesystem;
 using std::println;
 
 using citer = const std::vector<std::string>::const_iterator;
-
-namespace tools {
 
   export auto init(const Repository& repo, citer begin, citer end) -> int {
     if (repo.isExist()) {
@@ -61,5 +59,3 @@ namespace tools {
 
     return EXIT_SUCCESS;
   }
-
-}  // namespace tools

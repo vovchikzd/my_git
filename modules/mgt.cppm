@@ -3,9 +3,8 @@ module;
 #include <filesystem>
 namespace fs = std::filesystem;
 
-export module repository;
+export module mgt;
 
-namespace tools {
   export auto get_repo_root() -> fs::path {
     fs::path current_path = fs::current_path();
 
@@ -17,17 +16,16 @@ namespace tools {
         return current_path;
     return "";
   }
-} // namespace tools
 
-export struct Repository {
+export struct repository {
 private:
   const fs::path root_;
 
 public:
-  Repository(const Repository&) = delete;
-  Repository& operator=(const Repository&) = delete;
+  repository(const repository&) = delete;
+  repository& operator=(const repository&) = delete;
 
-  Repository(): root_(tools::get_repo_root()) {}
+  repository(): root_(tools::get_repo_root()) {}
 
   auto isExist() const -> bool { return !root_.empty(); }
 
