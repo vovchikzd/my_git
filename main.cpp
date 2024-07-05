@@ -33,6 +33,11 @@ auto main(int argc, const char* argv[]) -> int {
 
   const mgt::repository repo;
 
+  if (!repo.isExist()) {
+    println(stderr, "not a git repository");
+    return EXIT_FAILURE;
+  }
+
   for (auto begin = args.begin() + 1, end = argc.end(); begin < end; ++begin)
     begin = end;
 

@@ -16,6 +16,8 @@ namespace fs = std::filesystem;
 using std::println;
 using citer = const std::vector<std::string>::const_iterator;
 
+namespace mgt {
+
   export auto init(const Repository& repo, citer begin, citer end) -> int {
     if (repo.isExist()) {
       println(stderr, "Initialized repository already exist, root: {}",
@@ -85,3 +87,5 @@ public:
 
   auto root() const -> fs::path { return root_; }
 };
+
+} // namespace mgt
