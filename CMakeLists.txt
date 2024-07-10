@@ -6,22 +6,22 @@ project(my_git
 # check compilers
 if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
    AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 17))
-  message(FATAL_ERROR "Requires at least clang 17")
+  message(FATAL_ERROR "Requires at least clang v17")
 elseif((CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
        AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14))
-  message(FATAL_ERROR "Requires at least gcc 14")
-elseif((CMAKE_CXX_COMPILER_ID STREQUAL "MSVS")
+  message(FATAL_ERROR "Requires at least gcc v14")
+elseif((CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
        AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.34))
-  message(FATAL_ERROR "Requires at least MSVC 19.34")
+  message(FATAL_ERROR "Requires at least MSVC v19.34")
 endif()
 
 # check generators
 if(UNIX AND (CMAKE_GENERATOR STREQUAL "Unix Makefiles"))
   message(FATAL_ERROR "\nC++ modules aren't supported by Unix Makefiles."
-                      "\nModules are supported by Ninja for v.1.11 and newer.")
+                      "\nModules are supported by Ninja for v1.11 and newer.")
 elseif((CMAKE_GENERATOR MATCHES "Visual Studio")
        AND (MSVC_TOOLSET_VERSION LESS 143))
-  message(FATAL_ERROR "Requires at least Visual Studio 17 2022 generator")
+  message(FATAL_ERROR "Requires at least MSVC toolset v14.34 (Visual Studio v17.4 2022) generator")
 endif()
 
 set(CMAKE_CXX_STANDARD 23)
@@ -32,7 +32,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 set(PROJECT_MODULES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/modules)
 
-add_executable(mgit ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+add_executable(mgit)
 target_sources(mgit PUBLIC
                  ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
