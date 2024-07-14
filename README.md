@@ -10,6 +10,7 @@
 
 #### Goals
 - [x] init
+- [ ] rewrite init and init structure
 - [ ] add
 - [ ] cat-file
 - [ ] check-ignore
