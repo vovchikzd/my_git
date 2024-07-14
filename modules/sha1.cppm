@@ -2,12 +2,13 @@ module;
 
 #include <climits>
 #include <string>
-#include <string_view>
 #include <vector>
 #include <sstream>
+#include <array>
 
 export module sha1;
 using uint = unsigned int;
+using citer = std::string::const_iterator;
 
 namespace sha {
 
@@ -27,8 +28,13 @@ namespace sha {
     uint h3_ = h3_init_;
     uint h4_ = h4_init_;
 
-    std::vector<uint> suffix{0x80};
+    std::vector<std::array<uint, 512 / (CHAR_BIT * sizeof(uint))>> chunks;
 
+    void pre_process_(citer begin, citer end) {
+
+    }
+
+  /*
     void pre_process_() {
       const size_t last_chunk_length = bmsl_ % 512;
       const size_t bits_count        = sizeof(uint) * CHAR_BIT;
@@ -50,6 +56,7 @@ namespace sha {
         suffix.push_back(mask | bmsl_);
       }
     }
+  */
 
     auto lrotate(uint value, uint count = 1) -> uint {
       const uint mask = CHAR_BIT * sizeof(value) - 1;
@@ -58,11 +65,15 @@ namespace sha {
     }
 
   public:
-    sha1(std::string_view vstr = "")
-        : bmsl_(CHAR_BIT * vstr.size() * sizeof(uint)) {
-      pre_process_();
+    sha1(const std::string& str = ""): bmsl_(CHAR_BIT * sizeof(char) * str.size()) {
+      pre_process_(str.begin(), str.end());
+      // main_cycle();
     }
 
+    /*
+      Different sources give different information about this,
+      will be point my finger at he sky
+    */
     auto hash() -> std::string {
       std::stringstream res;
       res << lrotate(h0_, 128) << lrotate(h1_, 96) << lrotate(h2_, 64)
