@@ -16,9 +16,37 @@ namespace fs = std::filesystem;
 using std::println;
 using citer = const std::vector<std::string>::const_iterator;
 
+/* 
 namespace mgt {
 
-  export auto init(const Repository& repo, citer begin, citer end) -> int {
+  export auto get_repo_root(fs::path current_path) -> fs::path {
+    // fs::path current_path = fs::current_path();
+
+    for (int begin = 0,
+             end   = std::distance(current_path.begin(), current_path.end());
+         begin < end; ++begin, current_path = current_path.parent_path())
+      if (const fs::path tmp = current_path / ".git";
+          fs::exists(tmp) and fs::is_directory(tmp))
+        return current_path;
+    return "";
+  }
+
+export struct repository {
+private:
+  const fs::path root_;
+
+public:
+  repository(const repository&) = delete;
+  repository& operator=(const repository&) = delete;
+
+  repository(): root_(get_repo_root("")) {}
+
+  auto isExist() const -> bool { return !root_.empty(); }
+
+  auto root() const -> fs::path { return root_; }
+};
+
+  export auto init(citer begin, citer end) -> int {
     if (repo.isExist()) {
       println(stderr, "Initialized repository already exist, root: {}",
               repo.root().string());
@@ -61,31 +89,5 @@ namespace mgt {
     return EXIT_SUCCESS;
   }
 
-  export auto get_repo_root(fs::path current_path = fs::currnet_path()) -> fs::path {
-    //fs::path current_path = fs::current_path();
-
-    for (int begin = 0,
-             end   = std::distance(current_path.begin(), current_path.end());
-         begin < end; ++begin, current_path = current_path.parent_path())
-      if (const fs::path tmp = current_path / ".git";
-          fs::exists(tmp) and fs::is_directory(tmp))
-        return current_path;
-    return "";
-  }
-
-export struct repository {
-private:
-  const fs::path root_;
-
-public:
-  repository(const repository&) = delete;
-  repository& operator=(const repository&) = delete;
-
-  repository(): root_(tools::get_repo_root()) {}
-
-  auto isExist() const -> bool { return !root_.empty(); }
-
-  auto root() const -> fs::path { return root_; }
-};
-
 } // namespace mgt
+*/

@@ -2,8 +2,9 @@
 #include <print>
 #include <string>
 #include <vector>
+#include <algorithm>
 
-import mgt;
+// import mgt;
 import sha1;
 
 using std::println;
@@ -12,6 +13,22 @@ void usage(const char* name) {
   println(stdout, "usage: {} command/flag", name);
 }
 
+auto main() -> int {
+  std::vector<std::string> tests = {
+    "The quick brown fox jumps over the lazy dog"
+    , "The quick brown fox jumps over the lazy cog"
+    , ""
+  };
+
+  std::for_each(tests.begin(), tests.end(), [](const std::string& cs) {
+    println("{}", cs);
+    println("{}", sha::sha1(cs).hash());
+    println();
+  });
+}
+
+
+/*
 auto main(int argc, const char* argv[]) -> int {
   if (argc == 1) {
     println(stderr, "empty call of {}", argv[0]);
@@ -29,7 +46,7 @@ auto main(int argc, const char* argv[]) -> int {
 
   const std::vector<std::string> args(argv + 1, argv + argc);
 
-  if (args.forward() == "init") return mgt::init(args.begin() + 1, args.end());
+  if (args.front() == "init") return mgt::init(args.begin() + 1, args.end());
 
   const mgt::repository repo;
 
@@ -38,8 +55,9 @@ auto main(int argc, const char* argv[]) -> int {
     return EXIT_FAILURE;
   }
 
-  for (auto begin = args.begin() + 1, end = argc.end(); begin < end; ++begin)
+  for (auto begin = args.begin() + 1, end = args.end(); begin < end; ++begin)
     begin = end;
 
   return EXIT_SUCCESS;
 }
+*/
